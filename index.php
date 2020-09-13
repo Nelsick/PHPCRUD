@@ -61,7 +61,8 @@ if(!isset($usuario)){
 
       <div class="card-header">
         <div class="btn-group btn-group-sm col-md-4 offset-md-6" role="group">
-          
+      
+      <!-- Botón de edición de notas -->
         <button type="button" class="btn btn-link text-success" data-toggle="modal" data-target="#editar" title="Editar"><i class="fas fa-edit"></i></button>
 
             <div class="modal fade" id="editar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -95,6 +96,8 @@ if(!isset($usuario)){
                 </div>
               </div>
             </div>
+            
+        <!-- Fin del botón de edición más modal -->
 
           <button class="btn btn-link text-warning" title="Ocultar"><i class="fas fa-minus-circle"></i></button>
           <button class="btn btn-link text-danger" title="Eliminar"><i class="far fa-times-circle"></i></button>

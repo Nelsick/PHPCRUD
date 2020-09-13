@@ -14,19 +14,20 @@ function getNotes($conexion,$usuario){
 
         <div class="col mb-4">
         <div class="card <?php echo $row['color'] ?>">
-
           <div class="card-header">
-            <div class="btn-group btn-group-sm col-md-4 offset-md-6" role="group">
+            <div class="btn-group btn-group-sm float-right" role="group">
 
     <!-- Botón de edición de notas -->
-    
-            <button type="button" class="btn btn-link text-success" data-toggle="modal" data-target="#editar" title="Editar"><i class="fas fa-edit"></i></button>
 
-              <div class="modal fade" id="editar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <button type="button" class="btn btn-link text-success" data-toggle="modal" data-target="#modal_editar_<?php echo $row['id'] ?>" title="Editar"><i class="fas fa-edit"></i></button>
+    
+    <!-- Inicio de la modal -->
+
+              <div class="modal fade text-dark" id="modal_editar_<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar Nota</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Editando nota: <?php echo $row['id'] ?></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -37,12 +38,16 @@ function getNotes($conexion,$usuario){
 
                         <form action="./app/controllers/editNote.php" method="POST">
                           <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Titulo:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="id_nota" class="col-form-label"> ID: </label>
+                            <input type="text" class="form-control" id="id_nota" value="<?php echo $row['id'] ?>" disabled>
                           </div>
                           <div class="form-group">
-                            <label for="message-text" class="col-form-label">Descripción:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <label for="recipient-name" class="col-form-label"> Titulo: </label>
+                            <input type="text" class="form-control" id="recipient-name" value="<?php echo $row['titulo'] ?>">
+                          </div>
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label"> Descripción: </label>
+                            <textarea class="form-control" id="message-text"><?php echo $row['descripcion'] ?></textarea>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

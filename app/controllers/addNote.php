@@ -16,12 +16,14 @@
 
     if($q){
         echo "
-            <script> alert('Nota guardada correctamente')
-            location.href = '../../index.php'
+            <script>
+                location.href = '../../index.php'
             </script>";
     }else{
         echo "
-        <script> alert('Error al guardar la nota')</script>";
+        <script> 
+            alert('Error al guardar la nota')
+        </script>";
     }
     
 ?>
