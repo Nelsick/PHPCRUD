@@ -23,6 +23,7 @@
         echo "
         <script> 
             alert('Error al guardar la nota')
+            location.href = '../../index.php'
         </script>";
     }
     

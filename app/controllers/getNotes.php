@@ -37,18 +37,34 @@ function getNotes($conexion,$usuario){
     <!-- Formulario para actualizar las notas -->
 
                         <form action="./app/controllers/editNote.php" method="POST">
+
                           <div class="form-group">
                             <label for="id_nota" class="col-form-label"> ID: </label>
-                            <input type="text" class="form-control" id="id_nota" value="<?php echo $row['id'] ?>" disabled>
+                            <input type="text" class="form-control" id="id_nota" name="id_nota" value="<?php echo $row['id'] ?>" readonly>
                           </div>
+
                           <div class="form-group">
-                            <label for="recipient-name" class="col-form-label"> Titulo: </label>
-                            <input type="text" class="form-control" id="recipient-name" value="<?php echo $row['titulo'] ?>">
+                            <label for="title" class="col-form-label"> Titulo: </label>
+                            <input type="text" class="form-control" id="title" name="title" value="<?php echo $row['titulo'] ?>">
                           </div>
+
                           <div class="form-group">
-                            <label for="message-text" class="col-form-label"> Descripción: </label>
-                            <textarea class="form-control" id="message-text"><?php echo $row['descripcion'] ?></textarea>
+                            <label for="description" class="col-form-label"> Descripción: </label>
+                            <textarea class="form-control" id="description" name="description"><?php echo $row['descripcion'] ?></textarea>
                           </div>
+
+                          <div class="form-group">
+                            <label for="color" class="col-form-label"> Color: </label>
+                            <select class="form-control" name="color">
+                              <option value="">Blanco</option>
+                              <option value="bg-light mb-3">Gris claro</option>
+                              <option value="text-white bg-primary mb-3">Azul</option>
+                              <option value="bg-warning mb-3">Amarillo</option>
+                              <option value="text-white bg-success mb-3">Verde</option>
+                              <option value="bg-danger mb-3">Rojo</option>
+                            </select>
+                          </div>
+
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -61,10 +77,44 @@ function getNotes($conexion,$usuario){
 
     <!-- Fin del botón de edición más modal -->
 
-              <button class="btn btn-link text-warning" title="Ocultar"><i class="fas fa-minus-circle"></i></button>
-              <button class="btn btn-link text-danger" title="Eliminar"><i class="far fa-times-circle"></i></button>
+    <!-- Botón para ocultar la nota -->
+            <form action="./app/controllers/hideNote.php" method="POST">
+              <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+              <input type="hidden" name="estado" value="<?php echo $row['estado']; ?>">
+              <button type="submit" class="btn btn-link text-warning" title="Ocultar"><i class="fas fa-minus-circle"></i></button>
+            </form>
+    
+    <!-- Botón para eliminar la nota -->
+            <button type="button" class="btn btn-link text-danger" data-toggle="modal" data-target="#eliminar_nota<?php echo $row['id'];?>"><i class="far fa-times-circle"></i></button>
+
+            <!-- Modal -->
+            <div class="modal fade text-dark" id="eliminar_nota<?php echo $row['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Nota <?php echo $row['id']; ?></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    La nota <?php echo $row['id']; ?> se borrará para siempre
+                  <form action="./app/controllers/hideNote.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Descartar</button>
+                    <button type="submit" class="btn btn-danger">Borrar</button>
+                  </form>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+   
             </div>
           </div>
+
+    <!-- Fin de las acciones -->
 
           <div class="card-body">
 
