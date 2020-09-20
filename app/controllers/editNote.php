@@ -4,11 +4,12 @@ session_start();
 
 require "connect.php";
 
-$id = $_POST['id_nota'];
-$titulo = $_POST['title'];
-$descripcion = $_POST['description'];
-$color = $_POST['color'];
 $usuario = $_SESSION['username'];
+$selector = $_POST['reg'];
+$id = $_POST['id_nota_'.$selector];
+$titulo = $_POST['title_'.$selector];
+$descripcion = $_POST['description_'.$selector];
+$color = $_POST['color_'.$selector];
 
 function editNotes($conexion, $usuario, $id, $titulo, $descripcion, $color){
 

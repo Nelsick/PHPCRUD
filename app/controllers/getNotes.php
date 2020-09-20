@@ -1,10 +1,8 @@
 <?php
 
-require "./app/controllers/connect.php";
+function getNotes($conexion,$usuario, $state){
 
-function getNotes($conexion,$usuario){
-
-    $sql = "SELECT id, titulo, descripcion, fecha, color, estado, usuario FROM notas WHERE (usuario ='$usuario' AND estado = 0) ";
+    $sql = "SELECT id, titulo, descripcion, fecha, color, estado, usuario FROM notas WHERE usuario ='$usuario' AND estado = $state ";
 
     $result = $conexion->query($sql);
 
@@ -38,24 +36,26 @@ function getNotes($conexion,$usuario){
 
                         <form action="./app/controllers/editNote.php" method="POST">
 
+                          <input type="hidden" name="reg" value="<?php echo $row['id']; ?>">
+
                           <div class="form-group">
-                            <label for="id_nota" class="col-form-label"> ID: </label>
-                            <input type="text" class="form-control" id="id_nota" name="id_nota" value="<?php echo $row['id'] ?>" readonly>
+                            <label for="id_nota_<?php echo $row['id']; ?>" class="col-form-label"> ID: </label>
+                            <input type="text" class="form-control" id="id_nota_<?php echo $row['id']; ?>" name="id_nota_<?php echo $row['id']; ?>" value="<?php echo $row['id'] ?>" readonly>
                           </div>
 
                           <div class="form-group">
-                            <label for="title" class="col-form-label"> Titulo: </label>
-                            <input type="text" class="form-control" id="title" name="title" value="<?php echo $row['titulo'] ?>">
+                            <label for="title_<?php echo $row['id']; ?>" class="col-form-label"> Titulo: </label>
+                            <input type="text" class="form-control" id="title_<?php echo $row['id']; ?>" name="title_<?php echo $row['id']; ?>" value="<?php echo $row['titulo'] ?>">
                           </div>
 
                           <div class="form-group">
-                            <label for="description" class="col-form-label"> Descripción: </label>
-                            <textarea class="form-control" id="description" name="description"><?php echo $row['descripcion'] ?></textarea>
+                            <label for="description_<?php echo $row['id']; ?>" class="col-form-label"> Descripción: </label>
+                            <textarea class="form-control" id="description_<?php echo $row['id']; ?>" name="description_<?php echo $row['id']; ?>"><?php echo $row['descripcion'] ?></textarea>
                           </div>
 
                           <div class="form-group">
-                            <label for="color" class="col-form-label"> Color: </label>
-                            <select class="form-control" name="color">
+                            <label for="color_<?php echo $row['id']; ?>" class="col-form-label"> Color: </label>
+                            <select class="form-control" name="color_<?php echo $row['id']; ?>">
                               <option value="">Blanco</option>
                               <option value="bg-light mb-3">Gris claro</option>
                               <option value="text-white bg-primary mb-3">Azul</option>
@@ -99,7 +99,7 @@ function getNotes($conexion,$usuario){
                   </div>
                   <div class="modal-body">
                     La nota <?php echo $row['id']; ?> se borrará para siempre
-                  <form action="./app/controllers/hideNote.php" method="POST">
+                  <form action="./app/controllers/deleteNote.php" method="POST">
                     <input type="hidden" name="id" value="<?php echo $row['id'] ?>">
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Descartar</button>
